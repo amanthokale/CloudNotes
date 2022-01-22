@@ -6,20 +6,27 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
+import NoteState from './context/notes/NoteState';
 
 function App() {
   return (
-     <Router>
     <>
+ <NoteState>
+     <Router>
     <Navbar/>
+    <div className="container">
     <Routes>
   <Route exact path="/home" element={<Home/>}/>
   <Route exact path="/about" element={<About/>}/>
     </Routes>
+
+    </div>
+
+</Router>
+
+ </NoteState>
     </>
-     </Router>
   );
 }
 

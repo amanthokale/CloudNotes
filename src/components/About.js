@@ -1,19 +1,14 @@
-import React from 'react';
+import React,{ useContext,useEffect } from 'react';
 
 
-export default function Home (){
+const About = ()=>{
   return(
-      <>
         <div>
-        this is about
+        this is about 
         </div>
 
-
-
-
-
-
-    </>
   )
 
 }
+
+export default About;
