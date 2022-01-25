@@ -47,13 +47,13 @@ try {
 // [ROUTE 3] UPDATE A NEW NOTE USINGN PUT login req api/notes/updatenote
 
 router.put('/updatenote/:id',fetchuser,async (req,res)=>{
-try {
-  const {title,description,tag}=req.body;
 
+  const {title,description,tag}=req.body;
+try {
   const newNote = {};
   if(title){newNote.title=title};
-  if(title){newNote.description=description};
-  if(title){newNote.tag=tag};
+  if(description){newNote.description=description};
+  if(tag){newNote.tag=tag};
 
 
 let note = await Note.findById(req.params.id);
@@ -65,8 +65,8 @@ if(note.user.toString() !== req.user.id){
 }
 note = await Note.findByIdAndUpdate(req.params.id,{$set:newNote},{new:true});
 res.json({note});
-} catch (e) {
-
+} catch (error) {
+console.error(error.message);
 res.status(500).send("Internal server error");
 }
 

@@ -15,6 +15,7 @@ router.post('/createuser',[
   body('password','Password must be atleast 5 characters').isLength({min:5})
 
 ],async(req,res)=>{
+
   //IF THERE ARE ERRORS RETURN BAD REQUEST AND THE ERRORS
   const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -49,7 +50,8 @@ const data={
 };
 const authtoken = jwt.sign(data,JWT_SECRET);
 console.log(authtoken);
-res.json(authtoken);
+success=true;
+res.json({success,authtoken});
 
 }catch(error){
   console.error(error.message);
@@ -66,9 +68,11 @@ router.post('/login',[
   body('email','Enter a valid email').isEmail(),
   body('password','Password cannot be blank').exists()
 ],async(req,res)=>{
+success=true;
   //IF THERE ARE ERRORS RETURN BAD REQUEST AND THE ERRORS
   const errors = validationResult(req);
     if(!errors.isEmpty()){
+      sucess=false;
       return res.status(400).json({errors:errors.array()});
     }
 
@@ -77,12 +81,14 @@ router.post('/login',[
     try {
       let user = await User.findOne({email});
         if(!user){
-          return res.status(400).json({error:"Please try to login with correct credentials"});
+          success=false;
+          return res.status(400).json({success,error:"Please try to login with correct credentials"});
         }
 
         const passwordcompare = await bcrypt.compare(password,user.password);
         if(!passwordcompare){
-          return res.status(400).json({error:"Please try to login with correct credentials"});
+          success=false;
+          return res.status(400).json({success,error:"Please try to login with correct credentials"});
         }
 
         const data = {
@@ -91,10 +97,11 @@ router.post('/login',[
           }
         }
         const authtoken = jwt.sign(data,JWT_SECRET);
-        res.json(authtoken);
+
+        res.json({success,authtoken});
     } catch (error) {
       console.error(error.message);
-      res.status(500).send("Internal server error");
+      res.status(500).send(sucess,"Internal server error");
     }
 
 })
