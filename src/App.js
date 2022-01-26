@@ -32,15 +32,15 @@ function App() {
     <>
  <NoteState>
      <Router>
-    <Navbar/>
+    <Navbar givealert={givealert}/>
 
     <Alert alert={alert}/>
 
     <div className="container">
     <Routes>
-  <Route exact path="/" element={<Home givealert={givealert}/>}/>
+  <Route exact path="/home" element={<Home givealert={givealert}/>}/>
   <Route exact path="/about" element={<About/>}/>
-  <Route exact path="/login" element={<Login givealert={givealert}/>}/>
+  <Route exact path="/" element={<Login givealert={givealert}/>}/>
   <Route exact path="/signup" element={<Signup givealert={givealert}/>}/>
     </Routes>
 

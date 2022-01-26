@@ -3,7 +3,7 @@ import noteContext from '../context/notes/noteContext';
 
 
 
-const Addnote =()=>{
+const Addnote =(props)=>{
   const context = useContext(noteContext);
   const {addNote}= context;
 
@@ -19,6 +19,7 @@ else{
   addNote(note.title,note.description,note.tag);
     e.preventDefault();
     setNote({title:"",description:"",tag:""})
+    props.givealert("Note Added Successfully","success");
   }
 }
   const onChange=(e)=>{

@@ -31,13 +31,13 @@ export default function Signup(props){
           props.givealert("Successfully signed up","success");
        }
        else{
-         props.givealert("Inbavalid credentials","danger");
+         props.givealert("Invalid credentials","danger");
        }
 
   }
   return(
     <>
-
+<h2 className="text-center my-5">CloudNotes - SignUp</h2>
     <form onSubmit={submit}>
     <div className="mb-3">
       <label htmlFor="exampleInputEmail1" className="form-label">Name</label>
@@ -57,7 +57,7 @@ export default function Signup(props){
     <label htmlFor="exampleInputPassword" className="form-label">Confirm password</label>
     <input type="password" className="form-control" id="cpassword" name="cpassword" value={credentials.cpassword} onChange={onChange} minLength={5} required/>
   </div>
-  <button type="submit" className="btn btn-primary" >Submit</button>
+  <button type="submit" className="btn btn-primary" >Signup</button>
 </form>
 
 

@@ -1,11 +1,19 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import {Link,useLocation} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-const Navbar= ()=>{
-
-
-
+const Navbar= (props)=>{
+let navigate = useNavigate();
  let location = useLocation();
+
+const logout=()=>{
+  localStorage.removeItem('token');
+  navigate("/");
+  props.givealert("Logout Successfull","success");
+
+}
+
+
 
   return(
       <>
@@ -18,16 +26,14 @@ const Navbar= ()=>{
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
       <li className="nav-item">
-        <Link className={`nav-link ${location.pathname==="/home"?"active":""}`} aria-current="page" to="/home">Home</Link>
+        <Link className={`nav-link ${location.pathname==="/home"?"active":""}`} aria-current="page" to="/home">Notes</Link>
       </li>
       <li className="nav-item">
         <Link className={`nav-link ${location.pathname==="/about"?"active":""}`} to="/about">About</Link>
       </li>
     </ul>
-    <form className="d-flex">
-      <Link className="btn btn-primary mx-1" to="/login" role="button">Login</Link>
-      <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
-    </form>
+     {!localStorage.getItem('token')?null
+    :<Link className="btn btn-primary mx-1" to="/" onClick={logout} role="button">LogOut</Link>}
   </div>
 </div>
 </nav>
